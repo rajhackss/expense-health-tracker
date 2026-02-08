@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header';
 import { useExpenses } from '../context/ExpenseContext';
 import { useHealth } from '../context/HealthContext';
+import { Link } from 'react-router-dom';
 import {
     Wallet,
     Heart,
@@ -157,18 +158,18 @@ export default function Dashboard() {
                 <div className="card">
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <a href="/expenses" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors cursor-pointer">
+                        <Link to="/expenses" state={{ openAddModal: true }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors cursor-pointer">
                             <Wallet className="text-emerald-500" size={28} />
                             <span className="text-sm font-medium text-gray-900 dark:text-white">Add Expense</span>
-                        </a>
-                        <a href="/health" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 transition-colors cursor-pointer">
+                        </Link>
+                        <Link to="/health" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 transition-colors cursor-pointer">
                             <Footprints className="text-rose-500" size={28} />
                             <span className="text-sm font-medium text-gray-900 dark:text-white">Log Health</span>
-                        </a>
-                        <a href="/health" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 transition-colors cursor-pointer">
+                        </Link>
+                        <Link to="/health" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 transition-colors cursor-pointer">
                             <Flame className="text-orange-500" size={28} />
                             <span className="text-sm font-medium text-gray-900 dark:text-white">Add Workout</span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

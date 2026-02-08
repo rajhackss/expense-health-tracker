@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Modal from '../components/shared/Modal';
 import { useExpenses, EXPENSE_CATEGORIES } from '../context/ExpenseContext';
@@ -38,6 +39,7 @@ export default function Expenses() {
         categories
     } = useExpenses();
 
+    const location = useLocation();
     const [showAddModal, setShowAddModal] = useState(false);
     const [showBudgetModal, setShowBudgetModal] = useState(false);
     const [editingExpense, setEditingExpense] = useState(null);
@@ -52,6 +54,17 @@ export default function Expenses() {
     });
 
     const [budgetInput, setBudgetInput] = useState(monthlyBudget);
+
+    useEffect(() => {
+        if (location.state?.openAddModal) {
+            setShowAddModal(true);
+            // Optional: Clear state to avoid reopening on refresh, 
+            // but react-router-dom state persists on refresh so we might just leave it 
+            // or we'd need to replace history which is complex. 
+            // For now, this is sufficient.
+            window.history.replaceState({}, document.title);
+        }
+    }, [location]);
 
     const resetForm = () => {
         setFormData({
@@ -395,8 +408,8 @@ export default function Expenses() {
                                     type="button"
                                     onClick={() => setFormData({ ...formData, category: cat.id })}
                                     className={`p-3 rounded-xl text-center transition-all ${formData.category === cat.id
-                                            ? 'ring-2 ring-primary-500 bg-primary-50 dark:bg-primary-900/30'
-                                            : 'bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600'
+                                        ? 'ring-2 ring-primary-500 bg-primary-50 dark:bg-primary-900/30'
+                                        : 'bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600'
                                         }`}
                                     title={cat.name}
                                 >
