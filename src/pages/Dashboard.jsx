@@ -1,7 +1,7 @@
 import Header from '../components/layout/Header';
 import { useExpenses } from '../context/ExpenseContext';
 import { useHealth } from '../context/HealthContext';
-import { Link } from 'react-router-dom';
+
 import {
     Wallet,
     Heart,
@@ -9,7 +9,6 @@ import {
     TrendingDown,
     Droplets,
     Moon,
-    Footprints,
     Flame
 } from 'lucide-react';
 import { format } from 'date-fns';
@@ -126,53 +125,36 @@ export default function Dashboard() {
 
                     {/* Recent Workouts */}
 
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
-                            <span className="text-sm text-primary-500">View all</span>
-                        </div>
-                        <div className="space-y-3">
-                            {recentWorkouts.length > 0 ? (
-                                recentWorkouts.map(workout => (
-                                    <div key={workout.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-xl">{workout.icon || '🏃'}</span>
-                                            <div>
-                                                <p className="font-medium text-gray-900 dark:text-white text-sm">{workout.name}</p>
-                                                <p className="text-xs text-gray-500">{workout.duration} mins</p>
-                                            </div>
-                                        </div>
-                                        <span className="flex items-center gap-1 text-sm text-orange-500">
-                                            <Flame size={14} />
-                                            {workout.caloriesBurned} cal
-                                        </span>
-                                    </div>
-                                ))
-                            ) : (
-                                <p className="text-center text-gray-500 py-8">No workouts yet</p>
-                            )}
-                        </div>
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
+                        <span className="text-sm text-primary-500">View all</span>
                     </div>
-                </div>
-
-                {/* Quick Actions */}
-                <div className="card">
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <Link to="/expenses" state={{ openAddModal: true }} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 transition-colors cursor-pointer">
-                            <Wallet className="text-emerald-500" size={28} />
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Add Expense</span>
-                        </Link>
-                        <Link to="/health" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 transition-colors cursor-pointer">
-                            <Footprints className="text-rose-500" size={28} />
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Log Health</span>
-                        </Link>
-                        <Link to="/health" className="flex flex-col items-center gap-2 p-4 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 transition-colors cursor-pointer">
-                            <Flame className="text-orange-500" size={28} />
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">Add Workout</span>
-                        </Link>
+                    <div className="space-y-3">
+                        {recentWorkouts.length > 0 ? (
+                            recentWorkouts.map(workout => (
+                                <div key={workout.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-xl">{workout.icon || '🏃'}</span>
+                                        <div>
+                                            <p className="font-medium text-gray-900 dark:text-white text-sm">{workout.name}</p>
+                                            <p className="text-xs text-gray-500">{workout.duration} mins</p>
+                                        </div>
+                                    </div>
+                                    <span className="flex items-center gap-1 text-sm text-orange-500">
+                                        <Flame size={14} />
+                                        {workout.caloriesBurned} cal
+                                    </span>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-500 py-8">No workouts yet</p>
+                        )}
                     </div>
                 </div>
             </div>
+
+
         </div>
+
     );
 }
