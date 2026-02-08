@@ -125,7 +125,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Recent Workouts */}
-                    <div className="card">
+
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
                             <span className="text-sm text-primary-500">View all</span>
