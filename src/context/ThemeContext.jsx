@@ -8,6 +8,14 @@ export function ThemeProvider({ children }) {
         return saved ? JSON.parse(saved) : true;
     });
 
+    const [themeColor, setThemeColor] = useState(() => {
+        return localStorage.getItem('themeColor') || 'purple';
+    });
+
+    const [fontSize, setFontSize] = useState(() => {
+        return localStorage.getItem('fontSize') || 'medium';
+    });
+
     useEffect(() => {
         localStorage.setItem('darkMode', JSON.stringify(darkMode));
         if (darkMode) {
@@ -17,10 +25,24 @@ export function ThemeProvider({ children }) {
         }
     }, [darkMode]);
 
+    useEffect(() => {
+        localStorage.setItem('themeColor', themeColor);
+        if (themeColor === 'purple') {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', themeColor);
+        }
+    }, [themeColor]);
+
+    useEffect(() => {
+        localStorage.setItem('fontSize', fontSize);
+        document.documentElement.setAttribute('data-font', fontSize);
+    }, [fontSize]);
+
     const toggleDarkMode = () => setDarkMode(!darkMode);
 
     return (
-        <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+        <ThemeContext.Provider value={{ darkMode, toggleDarkMode, themeColor, setThemeColor, fontSize, setFontSize }}>
             {children}
         </ThemeContext.Provider>
     );

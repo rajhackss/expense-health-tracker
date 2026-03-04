@@ -9,12 +9,13 @@ import {
     Upload,
     Trash2,
     Database,
-    Palette
+    Palette,
+    Type
 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Settings() {
-    const { darkMode, toggleDarkMode } = useTheme();
+    const { darkMode, toggleDarkMode, themeColor, setThemeColor, fontSize, setFontSize } = useTheme();
     const { expenses, monthlyBudget } = useExpenses();
     const { healthLogs, workouts, goals } = useHealth();
 
@@ -82,6 +83,53 @@ export default function Settings() {
                                 <span className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transition-transform ${darkMode ? 'left-8' : 'left-1'
                                     }`} />
                             </button>
+                        </div>
+
+                        {/* Theme Color */}
+                        <div className="flex flex-col gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 mt-4">
+                            <div>
+                                <p className="font-medium text-gray-900 dark:text-white">Theme Color</p>
+                                <p className="text-sm text-gray-500">Choose your primary app color</p>
+                            </div>
+                            <div className="flex items-center gap-4 py-2">
+                                {[
+                                    { id: 'purple', class: 'bg-purple-500' },
+                                    { id: 'blue', class: 'bg-blue-500' },
+                                    { id: 'emerald', class: 'bg-emerald-500' },
+                                    { id: 'rose', class: 'bg-rose-500' }
+                                ].map(color => (
+                                    <button
+                                        key={color.id}
+                                        onClick={() => setThemeColor(color.id)}
+                                        className={`w-10 h-10 rounded-full ${color.class} transition-all ${themeColor === color.id ? 'scale-110 ring-4 ring-offset-2 ring-primary-500 dark:ring-offset-gray-900' : 'hover:scale-105'}`}
+                                        aria-label={`Select ${color.id} theme`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Font Size */}
+                        <div className="flex flex-col gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 mt-4">
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <Type className="text-gray-500" size={16} />
+                                    <p className="font-medium text-gray-900 dark:text-white">Font Size</p>
+                                </div>
+                                <p className="text-sm text-gray-500">Adjust the interface text size</p>
+                            </div>
+                            <div className="flex bg-gray-200 dark:bg-gray-700 p-1 rounded-xl">
+                                {['small', 'medium', 'large'].map(size => (
+                                    <button
+                                        key={size}
+                                        onClick={() => setFontSize(size)}
+                                        className={`flex-1 capitalize py-2 rounded-lg text-sm font-medium transition-colors ${fontSize === size
+                                            ? 'bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 shadow'
+                                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
+                                    >
+                                        {size}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
