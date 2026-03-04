@@ -17,6 +17,18 @@
     --color-primary-700: 109 40 217;
     --color-primary-800: 91 33 182;
     --color-primary-900: 76 29 149;
+
+    /* Zinc for Purple */
+    --color-gray-50: 250 250 250;
+    --color-gray-100: 244 244 245;
+    --color-gray-200: 228 228 231;
+    --color-gray-300: 212 212 216;
+    --color-gray-400: 161 161 170;
+    --color-gray-500: 113 113 122;
+    --color-gray-600: 82 82 91;
+    --color-gray-700: 63 63 70;
+    --color-gray-800: 39 39 42;
+    --color-gray-900: 24 24 27;
   }
 
   [data-theme="blue"] {
@@ -30,6 +42,18 @@
     --color-primary-700: 29 78 216;
     --color-primary-800: 30 64 175;
     --color-primary-900: 30 58 138;
+
+    /* Slate for Blue */
+    --color-gray-50: 248 250 252;
+    --color-gray-100: 241 245 249;
+    --color-gray-200: 226 232 240;
+    --color-gray-300: 203 213 225;
+    --color-gray-400: 148 163 184;
+    --color-gray-500: 100 116 139;
+    --color-gray-600: 71 85 105;
+    --color-gray-700: 51 65 85;
+    --color-gray-800: 30 41 59;
+    --color-gray-900: 15 23 42;
   }
 
   [data-theme="emerald"] {
@@ -43,6 +67,18 @@
     --color-primary-700: 4 120 87;
     --color-primary-800: 6 95 70;
     --color-primary-900: 6 78 59;
+
+    /* Neutral for Emerald */
+    --color-gray-50: 250 250 250;
+    --color-gray-100: 245 245 245;
+    --color-gray-200: 229 229 229;
+    --color-gray-300: 212 212 212;
+    --color-gray-400: 163 163 163;
+    --color-gray-500: 115 115 115;
+    --color-gray-600: 82 82 82;
+    --color-gray-700: 64 64 64;
+    --color-gray-800: 38 38 38;
+    --color-gray-900: 23 23 23;
   }
 
   [data-theme="rose"] {
@@ -56,24 +92,48 @@
     --color-primary-700: 190 18 60;
     --color-primary-800: 159 18 57;
     --color-primary-900: 136 19 55;
+
+    /* Stone for Rose */
+    --color-gray-50: 250 250 249;
+    --color-gray-100: 245 245 244;
+    --color-gray-200: 231 229 228;
+    --color-gray-300: 214 210 209;
+    --color-gray-400: 168 162 158;
+    --color-gray-500: 120 113 108;
+    --color-gray-600: 87 83 78;
+    --color-gray-700: 68 64 60;
+    --color-gray-800: 41 37 36;
+    --color-gray-900: 28 25 23;
   }
 
   html[data-font="small"] {
     font-size: 14px;
   }
-  
+
   html[data-font="medium"] {
     font-size: 16px;
   }
-  
+
   html[data-font="large"] {
     font-size: 18px;
+  }
+
+  html[data-radius="sharp"] {
+    --radius-factor: 0;
+  }
+
+  html[data-radius="default"] {
+    --radius-factor: 1;
+  }
+
+  html[data-radius="soft"] {
+    --radius-factor: 2;
   }
 
   html {
     font-family: 'Inter', system-ui, sans-serif;
   }
-  
+
   body {
     @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
   }
@@ -83,81 +143,81 @@
   .glass {
     @apply bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl;
   }
-  
+
   .glass-card {
     @apply glass rounded-2xl border border-white/20 dark:border-gray-700/50 shadow-xl;
   }
-  
+
   .btn {
     @apply px-4 py-2 rounded-xl font-medium transition-all duration-200 ease-out;
     @apply hover:scale-105 active:scale-95;
   }
-  
+
   .btn-primary {
     @apply btn bg-gradient-to-r from-primary-500 to-primary-600 text-white;
     @apply hover:from-primary-600 hover:to-primary-700 shadow-lg shadow-primary-500/30;
   }
-  
+
   .btn-expense {
     @apply btn bg-gradient-to-r from-emerald-500 to-emerald-600 text-white;
     @apply hover:from-emerald-600 hover:to-emerald-700 shadow-lg shadow-emerald-500/30;
   }
-  
+
   .btn-health {
     @apply btn bg-gradient-to-r from-rose-500 to-rose-600 text-white;
     @apply hover:from-rose-600 hover:to-rose-700 shadow-lg shadow-rose-500/30;
   }
-  
+
   .btn-diary {
     @apply btn bg-gradient-to-r from-amber-500 to-amber-600 text-white;
     @apply hover:from-amber-600 hover:to-amber-700 shadow-lg shadow-amber-500/30;
   }
-  
+
   .btn-secondary {
     @apply btn bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200;
     @apply hover:bg-gray-200 dark:hover:bg-gray-600;
   }
-  
+
   .input {
     @apply w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700;
     @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
     @apply focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500;
     @apply transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500;
   }
-  
+
   .card {
     @apply bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg;
     @apply border border-gray-100 dark:border-gray-700;
   }
-  
+
   .sidebar-link {
     @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200;
     @apply text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white;
     @apply hover:bg-gray-100 dark:hover:bg-gray-800;
   }
-  
+
   .sidebar-link.active {
     @apply bg-gradient-to-r from-primary-500/10 to-primary-600/10 text-primary-600 dark:text-primary-400;
     @apply border-l-4 border-primary-500;
   }
-  
+
   .stat-card {
     @apply card relative overflow-hidden;
   }
-  
+
   .stat-card::before {
     content: '';
     @apply absolute top-0 right-0 w-32 h-32 opacity-10 rounded-full -translate-y-1/2 translate-x-1/2;
   }
-  
+
   .stat-card-expense::before {
     @apply bg-emerald-500;
   }
-  
+
   .stat-card-health::before {
     @apply bg-rose-500;
   }
-  
+
   .stat-card-diary::before {
     @apply bg-amber-500;
   }
@@ -167,12 +227,12 @@
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-primary-600;
   }
-  
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }

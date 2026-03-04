@@ -10,12 +10,20 @@ import {
     Trash2,
     Database,
     Palette,
-    Type
+    Type,
+    Maximize,
+    Zap
 } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Settings() {
-    const { darkMode, toggleDarkMode, themeColor, setThemeColor, fontSize, setFontSize } = useTheme();
+    const {
+        darkMode, toggleDarkMode,
+        themeColor, setThemeColor,
+        fontSize, setFontSize,
+        borderRadius, setBorderRadius,
+        animations, setAnimations
+    } = useTheme();
     const { expenses, monthlyBudget } = useExpenses();
     const { healthLogs, workouts, goals } = useHealth();
 
@@ -129,6 +137,51 @@ export default function Settings() {
                                         {size}
                                     </button>
                                 ))}
+                            </div>
+                        </div>
+
+                        {/* Border Radius */}
+                        <div className="flex flex-col gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 mt-4">
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <Maximize className="text-gray-500" size={16} />
+                                    <p className="font-medium text-gray-900 dark:text-white">Border Radius</p>
+                                </div>
+                                <p className="text-sm text-gray-500">Adjust the roundness of UI elements</p>
+                            </div>
+                            <div className="flex bg-gray-200 dark:bg-gray-700 p-1 rounded-xl">
+                                {['sharp', 'default', 'soft'].map(radius => (
+                                    <button
+                                        key={radius}
+                                        onClick={() => setBorderRadius(radius)}
+                                        className={`flex-1 capitalize py-2 rounded-lg text-sm font-medium transition-colors ${borderRadius === radius
+                                            ? 'bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 shadow'
+                                            : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
+                                    >
+                                        {radius}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Animations */}
+                        <div className="flex flex-col gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 mt-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <Zap className="text-gray-500" size={16} />
+                                        <p className="font-medium text-gray-900 dark:text-white">Animations</p>
+                                    </div>
+                                    <p className="text-sm text-gray-500">Enable or disable interface effects</p>
+                                </div>
+                                <button
+                                    onClick={() => setAnimations(animations === 'enabled' ? 'disabled' : 'enabled')}
+                                    className={`relative w-14 h-7 rounded-full transition-colors ${animations === 'enabled' ? 'bg-primary-500' : 'bg-gray-300'
+                                        }`}
+                                >
+                                    <span className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transition-transform ${animations === 'enabled' ? 'left-8' : 'left-1'
+                                        }`} />
+                                </button>
                             </div>
                         </div>
                     </div>

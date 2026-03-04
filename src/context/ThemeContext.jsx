@@ -16,6 +16,10 @@ export function ThemeProvider({ children }) {
         return localStorage.getItem('fontSize') || 'medium';
     });
 
+    const [borderRadius, setBorderRadius] = useState(() => {
+        return localStorage.getItem('borderRadius') || 'default';
+    });
+
     useEffect(() => {
         localStorage.setItem('darkMode', JSON.stringify(darkMode));
         if (darkMode) {
@@ -39,10 +43,20 @@ export function ThemeProvider({ children }) {
         document.documentElement.setAttribute('data-font', fontSize);
     }, [fontSize]);
 
+    useEffect(() => {
+        localStorage.setItem('borderRadius', borderRadius);
+        document.documentElement.setAttribute('data-radius', borderRadius);
+    }, [borderRadius]);
+
     const toggleDarkMode = () => setDarkMode(!darkMode);
 
     return (
-        <ThemeContext.Provider value={{ darkMode, toggleDarkMode, themeColor, setThemeColor, fontSize, setFontSize }}>
+        <ThemeContext.Provider value={{
+            darkMode, toggleDarkMode,
+            themeColor, setThemeColor,
+            fontSize, setFontSize,
+            borderRadius, setBorderRadius
+        }}>
             {children}
         </ThemeContext.Provider>
     );
