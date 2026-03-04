@@ -11,8 +11,7 @@ import {
     Database,
     Palette,
     Type,
-    Maximize,
-    Zap
+    Maximize
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -161,27 +160,6 @@ export default function Settings() {
                                         {radius}
                                     </button>
                                 ))}
-                            </div>
-                        </div>
-
-                        {/* Animations */}
-                        <div className="flex flex-col gap-3 p-4 rounded-xl bg-gray-50 dark:bg-gray-800 mt-4">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <div className="flex items-center gap-2">
-                                        <Zap className="text-gray-500" size={16} />
-                                        <p className="font-medium text-gray-900 dark:text-white">Animations</p>
-                                    </div>
-                                    <p className="text-sm text-gray-500">Enable or disable interface effects</p>
-                                </div>
-                                <button
-                                    onClick={() => setAnimations(animations === 'enabled' ? 'disabled' : 'enabled')}
-                                    className={`relative w-14 h-7 rounded-full transition-colors ${animations === 'enabled' ? 'bg-primary-500' : 'bg-gray-300'
-                                        }`}
-                                >
-                                    <span className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transition-transform ${animations === 'enabled' ? 'left-8' : 'left-1'
-                                        }`} />
-                                </button>
                             </div>
                         </div>
                     </div>
