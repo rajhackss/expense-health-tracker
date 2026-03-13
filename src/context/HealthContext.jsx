@@ -112,10 +112,11 @@ export function HealthProvider({ children }) {
             const data = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),
-                date: doc.data().date?.toDate?.() || new Date(doc.data().date)
+                date: doc.data().date?.toDate?.() || new Date(doc.data().date),
+                createdAt: doc.data().createdAt?.toDate?.() || new Date(doc.data().createdAt || Date.now())
             }));
-            // Sort client-side
-            data.sort((a, b) => b.date - a.date);
+            // Sort client-side by exact creation time to fix display order of newest items
+            data.sort((a, b) => b.createdAt - a.createdAt);
             setWorkouts(data);
         }, (error) => {
             console.error("Error fetching workouts:", error);
