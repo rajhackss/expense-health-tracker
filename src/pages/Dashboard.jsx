@@ -124,37 +124,53 @@ export default function Dashboard() {
                     </div>
 
                     {/* Recent Workouts */}
-
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
-                        <span className="text-sm text-primary-500">View all</span>
-                    </div>
-                    <div className="space-y-3">
-                        {recentWorkouts.length > 0 ? (
-                            recentWorkouts.map(workout => (
-                                <div key={workout.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-xl">{workout.icon || '🏃'}</span>
-                                        <div>
-                                            <p className="font-medium text-gray-900 dark:text-white text-sm">{workout.name}</p>
-                                            <p className="text-xs text-gray-500">{workout.duration} mins</p>
+                    <div className="card">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
+                            <span className="text-sm text-primary-500">View all</span>
+                        </div>
+                        <div className="space-y-3">
+                            {recentWorkouts.length > 0 ? (
+                                recentWorkouts.map(workout => (
+                                    <div key={workout.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-xl">{workout.icon || '🏃'}</span>
+                                            <div>
+                                                <p className="font-medium text-gray-900 dark:text-white text-sm">{workout.name}</p>
+                                                <p className="text-xs text-gray-500">{workout.duration} mins</p>
+                                            </div>
                                         </div>
+                                        <span className="flex items-center gap-1 text-sm text-orange-500">
+                                            <Flame size={14} />
+                                            {workout.caloriesBurned} cal
+                                        </span>
                                     </div>
-                                    <span className="flex items-center gap-1 text-sm text-orange-500">
-                                        <Flame size={14} />
-                                        {workout.caloriesBurned} cal
-                                    </span>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-center text-gray-500 py-8">No workouts yet</p>
-                        )}
+                                ))
+                            ) : (
+                                <p className="text-center text-gray-500 py-8">No workouts yet</p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Importance of Fitness Video */}
+                <div className="card overflow-hidden">
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-gray-900 dark:text-white">Importance of Fitness</h3>
+                    </div>
+                    <div className="relative w-full aspect-video rounded-xl overflow-hidden">
+                        <iframe 
+                            className="absolute top-0 left-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/5m6qpyeDrqI?si=p8DBi2pco0ZrrvnQ" 
+                            title="YouTube video player" 
+                            frameBorder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerPolicy="strict-origin-when-cross-origin" 
+                            allowFullScreen
+                        ></iframe>
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     );
 }
