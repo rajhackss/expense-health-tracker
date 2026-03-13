@@ -153,6 +153,15 @@ export default function Health() {
     const totalWorkouts = workouts.length;
     const totalCaloriesBurned = workouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
 
+    const dietPlan = [
+        { day: 'Day 1', title: 'High Protein', desc: 'Grilled chicken breast, Quinoa, Steamed broccoli', icon: '🍗', color: 'bg-rose-500/10 text-rose-500' },
+        { day: 'Day 2', title: 'Low Carb', desc: 'Baked salmon, Asparagus, Avocado salad', icon: '🥑', color: 'bg-green-500/10 text-green-500' },
+        { day: 'Day 3', title: 'Balanced', desc: 'Turkey wrap with whole wheat, Sweet potato', icon: '🥪', color: 'bg-blue-500/10 text-blue-500' },
+        { day: 'Day 4', title: 'Plant-Based', desc: 'Lentil soup, Tofu stir-fry, Brown rice', icon: '🥬', color: 'bg-emerald-500/10 text-emerald-500' },
+        { day: 'Day 5', title: 'Lean Muscle', desc: 'Greek yogurt with berries, Lean steak, Veggies', icon: '🥩', color: 'bg-red-500/10 text-red-500' },
+        { day: 'Day 6', title: 'Recovery', desc: 'Oatmeal with protein powder, Mixed nuts', icon: '🥣', color: 'bg-orange-500/10 text-orange-500' },
+    ];
+
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
@@ -293,9 +302,10 @@ export default function Health() {
                 </div>
 
                 {/* Workouts Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Stats */}
-                    <div className="card bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+                <div className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        {/* Stats */}
+                        <div className="card bg-gradient-to-br from-orange-500 to-orange-600 text-white">
                         <h3 className="font-semibold mb-4">Workout Stats</h3>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
@@ -342,6 +352,33 @@ export default function Health() {
                             ) : (
                                 <p className="text-center text-gray-500 py-8">No workouts logged yet</p>
                             )}
+                        </div>
+                    </div>
+                    </div>
+                    
+                    {/* 6-Day Diet Plan */}
+                    <div className="card">
+                        <div className="flex items-center gap-2 mb-6">
+                            <span className="text-2xl">🥗</span>
+                            <h3 className="font-semibold text-gray-900 dark:text-white text-lg">6-Day Diet Plan</h3>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {dietPlan.map((day, idx) => (
+                                <div key={idx} className="p-4 rounded-xl border border-gray-100 dark:border-gray-700/50 hover:border-primary-100 dark:hover:border-primary-900/50 transition-colors bg-gray-50/50 dark:bg-gray-800/50">
+                                    <div className="flex items-start justify-between mb-3">
+                                        <div>
+                                            <p className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1">{day.day}</p>
+                                            <h4 className="font-semibold text-gray-900 dark:text-white">{day.title}</h4>
+                                        </div>
+                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl ${day.color}`}>
+                                            {day.icon}
+                                        </div>
+                                    </div>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        {day.desc}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
