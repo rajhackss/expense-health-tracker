@@ -17,6 +17,20 @@ LifeSync is a comprehensive personal management dashboard designed to help you s
 - **Goals:** Set personalized health goals for water, sleep, steps, and weight.
 - **Trends:** Monitor your progress over time.
 
+### 🥗 Food Calories Counter *(New)*
+- **Meal Logging:** Log meals as Vegetarian or Non-Vegetarian with a quick-pick grid of 45 preset Indian & international foods (auto-fills name and calories).
+- **Meal Breakdown:** Track calories per meal type — Breakfast, Lunch, Dinner, and Snack.
+- **Daily Goal:** Progress bar shows calories consumed vs. your daily goal (default 2,000 kcal).
+- **7-Day Chart:** Bar chart visualising calorie intake over the last 7 days.
+- **History:** Persistent food log with veg/non-veg badge and delete support.
+
+### 🏋️ Gym Workout Planner *(New)*
+- **Muscle Groups:** Plan exercises across 7 groups — Chest, Back, Legs, Shoulders, Arms, Core, and Full Body.
+- **Exercise Library:** 9–10 curated exercises per muscle group with a custom option.
+- **Details:** Track sets, reps, and weight (kg) per exercise.
+- **Weekly Schedule:** Multi-day scheduler (Mon–Sun) with a colour-coded weekly grid view.
+- **Routines:** View and delete all planned exercises from the full routine list.
+
 ### 🔐 Secure & Private
 - **Google Authentication:** Secure and easy login.
 - **Data Isolation:** Your data is stored securely in the cloud and isolated to your account.
@@ -113,6 +127,20 @@ Before you begin, ensure you have the following installed:
         match /workouts/{workoutId} {
           allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
           allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+        }
+
+        // Food Logs
+        match /foodLogs/{logId} {
+          allow read: if request.auth != null && (resource == null || resource.data.userId == request.auth.uid);
+          allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+          allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+        }
+
+        // Gym Routines
+        match /gymRoutines/{routineId} {
+          allow read: if request.auth != null && (resource == null || resource.data.userId == request.auth.uid);
+          allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+          allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
         }
       }
     }
