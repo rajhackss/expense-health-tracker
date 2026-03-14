@@ -9,17 +9,19 @@ import {
     TrendingDown,
     Droplets,
     Moon,
-    Flame
+    Flame,
+    Apple
 } from 'lucide-react';
 import { format } from 'date-fns';
 
 export default function Dashboard() {
     const { expenses, getMonthlyTotal, monthlyBudget } = useExpenses();
-    const { healthLogs, workouts, getTodayLog, goals } = useHealth();
+    const { healthLogs, workouts, getTodayLog, getTodayCalories, goals } = useHealth();
 
     const monthlyTotal = getMonthlyTotal();
     const budgetUsed = (monthlyTotal / monthlyBudget) * 100;
     const todayHealth = getTodayLog();
+    const todayCalories = getTodayCalories();
 
     // Recent entries
     const recentExpenses = expenses.slice(0, 5);
@@ -84,12 +86,25 @@ export default function Dashboard() {
                                         <Moon size={14} className="text-indigo-500" />
                                         {todayHealth?.sleep || 0}h
                                     </span>
+                                    <span className="flex items-center gap-1 text-sm text-gray-500">
+                                        <Flame size={14} className="text-emerald-500" />
+                                        {todayCalories} kcal
+                                    </span>
                                 </div>
                             </div>
                             <div className="w-12 h-12 rounded-xl bg-rose-500/10 flex items-center justify-center">
                                 <Heart className="text-rose-500" size={24} />
                             </div>
                         </div>
+                        {/* Calorie Progress */}
+                        {todayCalories > 0 && (
+                            <div className="mt-4 h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                                <div
+                                    className={`h-full rounded-full transition-all duration-500 ${todayCalories > (goals.calories || 2000) ? 'bg-red-500' : 'bg-emerald-500'}`}
+                                    style={{ width: `${Math.min((todayCalories / (goals.calories || 2000)) * 100, 100)}%` }}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
 
