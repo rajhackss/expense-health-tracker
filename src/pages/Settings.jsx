@@ -49,12 +49,6 @@ export default function Settings() {
         setTimeout(() => setExportStatus(''), 3000);
     };
 
-    const clearLocalData = () => {
-        if (confirm('Are you sure you want to clear all local data? This will reset your budget and goals settings.')) {
-            localStorage.clear();
-            window.location.reload();
-        }
-    };
 
     return (
         <div className="min-h-screen">
@@ -203,20 +197,6 @@ export default function Settings() {
                             {exportStatus && (
                                 <p className="text-center text-emerald-500 text-sm animate-fade-in">{exportStatus}</p>
                             )}
-
-                            {/* Clear Local Data */}
-                            <button
-                                onClick={clearLocalData}
-                                className="w-full flex items-center justify-center gap-2 p-4 rounded-xl 
-                  bg-red-500/10 text-red-600 dark:text-red-400 
-                  hover:bg-red-500/20 transition-colors font-medium"
-                            >
-                                <Trash2 size={20} />
-                                Clear Local Settings
-                            </button>
-                            <p className="text-xs text-gray-500 text-center">
-                                This only clears local settings (budget, goals). Cloud data remains in Firebase.
-                            </p>
                         </div>
                     </div>
 
