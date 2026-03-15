@@ -4,7 +4,9 @@ import {
     GoogleAuthProvider,
     signInWithPopup,
     signOut as firebaseSignOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
 } from 'firebase/auth';
 
 const AuthContext = createContext();
@@ -20,6 +22,24 @@ export function AuthProvider({ children }) {
         });
         return unsubscribe;
     }, []);
+
+    const signUp = async (email, password) => {
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            console.error("Sign up failed:", error);
+            throw error;
+        }
+    };
+
+    const signIn = async (email, password) => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            console.error("Sign in failed:", error);
+            throw error;
+        }
+    };
 
     const login = async () => {
         const provider = new GoogleAuthProvider();
@@ -43,6 +63,8 @@ export function AuthProvider({ children }) {
     const value = useMemo(() => ({
         user,
         loading,
+        signUp,
+        signIn,
         login,
         logout
     }), [user, loading]);
