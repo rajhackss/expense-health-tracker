@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header';
 import { useExpenses } from '../context/ExpenseContext';
 import { useHealth } from '../context/HealthContext';
+import { Link } from 'react-router-dom';
 
 import {
     Wallet,
@@ -114,7 +115,7 @@ export default function Dashboard() {
                     <div className="card">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-semibold text-gray-900 dark:text-white">Recent Expenses</h3>
-                            <span className="text-sm text-primary-500">View all</span>
+                            <Link to="/expenses" className="text-sm text-primary-500 hover:text-primary-600 transition-colors">View all</Link>
                         </div>
                         <div className="space-y-3">
                             {recentExpenses.length > 0 ? (
@@ -142,7 +143,7 @@ export default function Dashboard() {
                     <div className="card">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
-                            <span className="text-sm text-primary-500">View all</span>
+                            <Link to="/health" className="text-sm text-primary-500 hover:text-primary-600 transition-colors">View all</Link>
                         </div>
                         <div className="space-y-3">
                             {recentWorkouts.length > 0 ? (
