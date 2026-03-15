@@ -1,7 +1,8 @@
 import Header from '../components/layout/Header';
 import { useExpenses } from '../context/ExpenseContext';
 import { useHealth } from '../context/HealthContext';
-import { Link } from 'react-router-dom';
+import Modal from '../components/shared/Modal';
+import { useState } from 'react';
 
 import {
     Wallet,
@@ -18,6 +19,9 @@ import { format } from 'date-fns';
 export default function Dashboard() {
     const { expenses, getMonthlyTotal, monthlyBudget } = useExpenses();
     const { healthLogs, workouts, getTodayLog, getTodayCalories, goals } = useHealth();
+
+    const [showAllExpensesModal, setShowAllExpensesModal] = useState(false);
+    const [showAllWorkoutsModal, setShowAllWorkoutsModal] = useState(false);
 
     const monthlyTotal = getMonthlyTotal();
     const budgetUsed = (monthlyTotal / monthlyBudget) * 100;
@@ -115,7 +119,12 @@ export default function Dashboard() {
                     <div className="card">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-semibold text-gray-900 dark:text-white">Recent Expenses</h3>
-                            <Link to="/expenses" className="text-sm text-primary-500 hover:text-primary-600 transition-colors">View all</Link>
+                            <button 
+                                onClick={() => setShowAllExpensesModal(true)}
+                                className="text-sm text-primary-500 hover:text-primary-600 transition-colors font-semibold"
+                            >
+                                View all
+                            </button>
                         </div>
                         <div className="space-y-3">
                             {recentExpenses.length > 0 ? (
@@ -143,7 +152,12 @@ export default function Dashboard() {
                     <div className="card">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
-                            <Link to="/health" className="text-sm text-primary-500 hover:text-primary-600 transition-colors">View all</Link>
+                            <button 
+                                onClick={() => setShowAllWorkoutsModal(true)}
+                                className="text-sm text-primary-500 hover:text-primary-600 transition-colors font-semibold"
+                            >
+                                View all
+                            </button>
                         </div>
                         <div className="space-y-3">
                             {recentWorkouts.length > 0 ? (
@@ -187,6 +201,61 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
+
+            {/* All Expenses Modal */}
+            <Modal isOpen={showAllExpensesModal} onClose={() => setShowAllExpensesModal(false)} title="All Expenses">
+                <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                    {expenses.length > 0 ? (
+                        expenses.map(expense => (
+                            <div key={expense.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                                <div className="flex items-center gap-3">
+                                    <span className="text-xl">{expense.categoryIcon || '💰'}</span>
+                                    <div>
+                                        <p className="font-medium text-gray-900 dark:text-white text-sm">{expense.description}</p>
+                                        <p className="text-xs text-gray-500">{format(new Date(expense.date), 'MMM d, yyyy')}</p>
+                                    </div>
+                                </div>
+                                <span className="font-semibold text-gray-900 dark:text-white">
+                                    ₹{expense.amount.toLocaleString()}
+                                </span>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500 py-8">No expenses logged yet</p>
+                    )}
+                </div>
+                <div className="pt-4">
+                    <button onClick={() => setShowAllExpensesModal(false)} className="btn-secondary w-full">Close</button>
+                </div>
+            </Modal>
+
+            {/* All Workouts Modal */}
+            <Modal isOpen={showAllWorkoutsModal} onClose={() => setShowAllWorkoutsModal(false)} title="All Workouts">
+                <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                    {workouts.length > 0 ? (
+                        workouts.map(workout => (
+                            <div key={workout.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                                <div className="flex items-center gap-3">
+                                    <span className="text-xl">{workout.icon || '🏃'}</span>
+                                    <div>
+                                        <p className="font-medium text-gray-900 dark:text-white text-sm">{workout.name}</p>
+                                        <p className="text-xs text-gray-500">{workout.duration} mins • {format(new Date(workout.date), 'MMM d, yyyy')}</p>
+                                    </div>
+                                </div>
+                                <span className="flex items-center gap-1 text-sm text-orange-500 font-medium">
+                                    <Flame size={14} />
+                                    {workout.caloriesBurned} cal
+                                </span>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-500 py-8">No workouts logged yet</p>
+                    )}
+                </div>
+                <div className="pt-4">
+                    <button onClick={() => setShowAllWorkoutsModal(false)} className="btn-secondary w-full">Close</button>
+                </div>
+            </Modal>
         </div>
     );
 }
