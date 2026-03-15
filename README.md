@@ -32,14 +32,15 @@ LifeSync is a comprehensive personal management dashboard designed to help you s
 - **Routines:** View and delete all planned exercises from the full routine list.
 
 ### 🔐 Secure & Private
-- **Google Authentication:** Secure and easy login.
-- **Data Isolation:** Your data is stored securely in the cloud and isolated to your account.
-- **Local Settings:** Personalized settings (Budget, Goals) are saved locally for your convenience.
+- **Flexible Authentication:** Sign in securely using **Google** or **Email/Password**.
+- **Data Isolation:** Your data is stored securely in the cloud (Firebase Firestore) and isolated to your account.
+- **Privacy First:** No tracking or third-party data sharing.
 
 ### 🎨 Modern UI/UX
 - **Responsive Design:** Works seamlessly on desktop and mobile.
-- **Dark Mode:** Easy on the eyes with a built-in dark theme.
-- **Interactive Dashboard:** Get a quick overview of your day at a glance.
+- **Dark Mode:** Built-in dark theme for comfortable nighttime use.
+- **Interactive Dashboard:** Get a quick overview of your day with real-time stats and modal views for full history access without leaving the page.
+- **Micro-animations:** Smooth transitions and hover effects for a premium feel.
 
 ## 🛠️ Tech Stack
 
