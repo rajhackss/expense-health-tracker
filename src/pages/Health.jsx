@@ -48,6 +48,7 @@ export default function Health() {
 
     // ── Gym modals ──
     const [showGymModal, setShowGymModal] = useState(false);
+    const [showAllWorkoutsModal, setShowAllWorkoutsModal] = useState(false);
     const [selectedMuscleGroup, setSelectedMuscleGroup] = useState('chest');
 
     // ── Forms ──
@@ -335,7 +336,17 @@ export default function Health() {
                                     </div>
                                 </div>
                                 <div className="lg:col-span-2 card">
-                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Recent Workouts</h3>
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white">Recent Workouts</h3>
+                                        {workouts.length > 5 && (
+                                            <button 
+                                                onClick={() => setShowAllWorkoutsModal(true)}
+                                                className="text-orange-500 hover:text-orange-600 text-sm font-semibold transition-colors"
+                                            >
+                                                View all
+                                            </button>
+                                        )}
+                                    </div>
                                     <div className="space-y-3">
                                         {workouts.slice(0, 5).length > 0 ? (
                                             workouts.slice(0, 5).map(workout => (
@@ -947,6 +958,34 @@ export default function Health() {
                         <button type="submit" className="btn bg-gradient-to-r from-violet-500 to-purple-600 text-white flex-1">Save Routine</button>
                     </div>
                 </form>
+            </Modal>
+
+            {/* All Workouts Modal */}
+            <Modal isOpen={showAllWorkoutsModal} onClose={() => setShowAllWorkoutsModal(false)} title="All Workouts">
+                <div className="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                    {workouts.map(workout => (
+                        <div key={workout.id} className="flex items-center justify-between p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50">
+                            <div className="flex items-center gap-3">
+                                <span className="text-2xl">{workout.icon}</span>
+                                <div>
+                                    <p className="font-medium text-gray-900 dark:text-white">{workout.name}</p>
+                                    <p className="text-sm text-gray-500">{workout.duration} mins • {format(new Date(workout.date), 'MMM d, yyyy')}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <span className="flex items-center gap-1 text-orange-500 font-medium">
+                                    <Flame size={16} /> {workout.caloriesBurned} cal
+                                </span>
+                                <button onClick={() => deleteWorkout(workout.id)} className="p-2 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30">
+                                    <Trash2 size={16} className="text-red-500" />
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="pt-4">
+                    <button onClick={() => setShowAllWorkoutsModal(false)} className="btn-secondary w-full">Close</button>
+                </div>
             </Modal>
         </div>
     );
